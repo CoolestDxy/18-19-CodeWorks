@@ -27,7 +27,7 @@ void P032N02_R(const unsigned n)
 		list[n-1] = true;
 		P032N02_R(n - 1);
 		list[n-1] = false;
-		P032N02_R(n - 1)
+		P032N02_R(n - 1);
 	}
 }
 
