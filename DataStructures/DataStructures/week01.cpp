@@ -1,5 +1,5 @@
 //week01.cpp
-//Page:032 No:02
+//Page:032
 #include <iostream>
 #include <string>
 #include <list>
