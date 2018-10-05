@@ -131,14 +131,14 @@ public:
 	}
 	Polynomials input(std::vector<int> input)
 	{
-		start = (free!=0)?++free:free;
+		start = (free != 0) ? ++free : free;
 		finish = start;
 		for (int i = 0; i < input.size() / 2; i++)
 		{
-			termArray[start+i].power = input[2 * i];
-			termArray[start+i].cow = input[2 * i + 1];
-			(i==0)?finish:++finish;
-			(i==0)?free:++free;
+			termArray[start + i].power = input[2 * i];
+			termArray[start + i].cow = input[2 * i + 1];
+			(i == 0) ? finish : ++finish;
+			(i == 0) ? free : ++free;
 		}
 		return *this;
 	}
@@ -150,7 +150,7 @@ public:
 		for (int i = start; i <= finish; i++)
 		{
 			oss << termArray[i].cow << "*x^" << termArray[i].power;
-			(i==finish)?(oss<<""):(oss<<"+");
+			(i == finish) ? (oss << "") : (oss << "+");
 		}
 		temp = oss.str();
 		return temp;
@@ -169,15 +169,13 @@ public:
 		Polynomials res;
 		res.start = free + 1;
 		res.finish = res.start;
-		++free;
 		termArray[res.start] = { 0,0 };
 		for (int i = start; i <= finish; i++)
 		{
 			for (int j = pol.start; j <= pol.finish; j++)
 			{
-				termArray[finish];
 				Term temp = { termArray[i].power + termArray[j].power , termArray[i].cow * termArray[j].cow };
-				for (int k = res.start; k < res.finish; k++)
+				for (int k = res.start; k <= res.finish; k++)
 				{
 					if (temp.power < termArray[k].power)
 					{
@@ -190,8 +188,8 @@ public:
 					}
 					else if (temp.power > termArray[k].power)
 					{
-						++finish;
-						++res.finish;
+						(free < res.finish)?NULL:++res.finish;
+						++free;
 						for (int l = k; l < finish; l++)
 						{
 							termArray[l + 1] = termArray[l];
@@ -199,10 +197,10 @@ public:
 						termArray[k] = temp;
 						break;
 					}
-
 				}
-				++res.finish;
+				(free < res.finish) ? NULL : ++res.finish;
 				++free;
+				termArray[res.finish] = temp;
 			}
 		}
 		return res;
@@ -249,10 +247,13 @@ public:
 		}
 		else if (keyA > finish)
 		{
-			++res.finish;
-			++free;
-			termArray[res.finish] = { termArray[keyB].power,termArray[keyB].cow };
-			++keyB;
+			while (keyB <= pol.finish)
+			{
+				++res.finish;
+				++free;
+				termArray[res.finish] = { termArray[keyB].power,termArray[keyB].cow };
+				++keyB;
+			}
 		}
 		else
 		{
@@ -268,12 +269,12 @@ int Polynomials::free = 0;
 void P093N09()
 {
 	std::vector<int> vectorA = { 9,1,7,2,6,3 };
-	std::vector<int> vectorB = { 5,5,4,1,3,9,2,10,1,5,0,6 };
-	Polynomials sA= Polynomials(vectorA);
-	Polynomials sB= Polynomials(vectorB);
-	std::cout << sA.outPut()<<std::endl;
-	std::cout << sB.outPut()<<std::endl;
+	std::vector<int> vectorB = { 7,4,5,5,4,1,3,9,2,10,1,5,0,6 };
+	Polynomials sA = Polynomials(vectorA);
+	Polynomials sB = Polynomials(vectorB);
+	std::cout << sA.outPut() << std::endl;
+	std::cout << sB.outPut() << std::endl;
 	std::cout << sB.evaluate(3) << std::endl;
 	std::cout << (sA + sB).outPut() << std::endl;
-	//std::cout << (sA * sB).outPut() << std::endl;
+	std::cout << (sA * sB).outPut() << std::endl;
 }
