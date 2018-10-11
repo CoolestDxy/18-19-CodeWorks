@@ -28,6 +28,7 @@ class SparseMatrix
 private:
 	int rows,cols,terms,capacity;
 	MatixTerm * smArray;
+
 };
 SparseMatrix::SparseMatrix(int r, int c, int t)
 {
@@ -41,5 +42,25 @@ SparseMatrix SparseMatrix::FastTranspose()
 	if(terms>0)
 	{
 		int * rowSize=new int[cols];
+		for(int i=0;i<terms;++i)
+		{
+			++rowSize[smArray[i].col];
+		}
+		for(int i=0;i<terms;++i)
+		{
+			int res=1;
+				for(int j=1;j<=i;++j)
+			{
+				res+=rowSize[i];
+			}
+		}
 	}
 }
+	// int rowStart(int i)
+	// {
+	// 	int res=1;
+	// 	for(int j=1;j<=i;++j)
+	// 	{
+	// 		res+=rowSize[i];
+	// 	}
+	// }
