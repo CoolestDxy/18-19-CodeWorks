@@ -19,48 +19,51 @@ class MatixTerm
 {
 	friend class SparseMatrix;
 private:
-	int row,col,value;
+	int row, col, value;
 };
 class SparseMatrix
 {
 	SparseMatrix(int r, int c, int t);
 	SparseMatrix FastTranspose();
 private:
-	int rows,cols,terms,capacity;
+	int rows, cols, terms, capacity;
 	MatixTerm * smArray;
 
 };
 SparseMatrix::SparseMatrix(int r, int c, int t)
 {
-	rows=r;
-	cols=c;
-	terms=t;
+	rows = r;
+	cols = c;
+	terms = t;
 }
+int rowStart(int i, int* ths);
 SparseMatrix SparseMatrix::FastTranspose()
 {
-	SparseMatrix b(cols,rows,terms);
-	if(terms>0)
+	SparseMatrix b(cols, rows, terms);
+	if (terms > 0)
 	{
-		int * rowSize=new int[cols];
-		for(int i=0;i<terms;++i)
+		int * rowSize = new int[cols];
+		for (int i = 0; i < terms; ++i)
 		{
 			++rowSize[smArray[i].col];
 		}
-		for(int i=0;i<terms;++i)
+		for (int i = 0; i < terms; ++i)
 		{
-			int res=1;
-				for(int j=1;j<=i;++j)
-			{
-				res+=rowSize[i];
-			}
+			int j = rowStart(smArray[i].col,rowSize);
+			b.smArray[j].row = smArray[i].col;
+			b.smArray[j].col = smArray[i].row;
+			b.smArray[j].value = smArray[i].value;
 		}
+		delete rowSize;
 	}
+	return b;
 }
-	// int rowStart(int i)
-	// {
-	// 	int res=1;
-	// 	for(int j=1;j<=i;++j)
-	// 	{
-	// 		res+=rowSize[i];
-	// 	}
-	// }
+ int rowStart(int i,int * ths)
+ {
+ 	int res=1;
+ 	for(int j=1;j<=i;++j)
+ 	{
+ 		res+=ths[i];
+ 	}
+	return res;
+ }
