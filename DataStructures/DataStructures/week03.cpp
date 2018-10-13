@@ -15,6 +15,7 @@ O(n)
 */
 //P107N04
 //Rewrite function FastTranspose……
+
 class MatixTerm
 {
 	friend class SparseMatrix;
@@ -23,19 +24,19 @@ private:
 };
 class SparseMatrix
 {
-	SparseMatrix(int r, int c, int t);
+public:
+	SparseMatrix(int r, int c, int t)
+	{
+		rows = r;
+		cols = c;
+		terms = t;
+	}
 	SparseMatrix FastTranspose();
 private:
 	int rows, cols, terms, capacity;
 	MatixTerm * smArray;
 
 };
-SparseMatrix::SparseMatrix(int r, int c, int t)
-{
-	rows = r;
-	cols = c;
-	terms = t;
-}
 int rowStart(int i, int* ths);
 SparseMatrix SparseMatrix::FastTranspose()
 {
@@ -66,4 +67,10 @@ SparseMatrix SparseMatrix::FastTranspose()
  		res+=ths[i];
  	}
 	return res;
+ }
+ void P107N04()
+ {
+	 SparseMatrix *a=new SparseMatrix(10,5,6);
+
+	 
  }
