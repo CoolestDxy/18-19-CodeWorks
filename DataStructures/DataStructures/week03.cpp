@@ -51,28 +51,35 @@ SparseMatrix SparseMatrix::FastTranspose()
 	SparseMatrix b(cols, rows, terms);
 	if (terms > 0)
 	{
-		int * rowSize = new int[cols] {0};
+		int * rowSize = new int[cols];
+		for (int i = 0; i < cols; i++)
+		{
+			rowSize[i] = 0;
+		}
 		for (int i = 0; i < terms; ++i)
 		{
 			++rowSize[smArray[i].col];
 		}
+		int offSet = 0;
 		for (int i = 0; i < terms; ++i)
 		{
 			int j = rowStart(smArray[i].col, rowSize);
 			b.smArray[j].row = smArray[i].col;
 			b.smArray[j].col = smArray[i].row;
 			b.smArray[j].value = smArray[i].value;
+			++rowSize[smArray[i].col-1];
+			--rowSize[smArray[i].col];
 		}
-		delete rowSize;
+		//delete []rowSize;
 	}
 	return b;
 }
 int rowStart(int i, int * ths)
 {
-	int res = 1;
-	for (int j = 1; j <= i; ++j)
+	int res = 0;
+	for (int j = 0; j < i; ++j)
 	{
-		res += ths[i];
+		res += ths[j];
 	}
 	return res;
 }
