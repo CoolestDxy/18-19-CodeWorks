@@ -19,11 +19,7 @@
 #define INIT_N 9
 #define MAX_STEP 50000
 
-struct Bug
-{
-	int i;
-	int j;
-};
+struct Bug { int i; int j; };
 inline void avliableList(Bug me,int * res)
 {
 	switch (me.i)
@@ -37,7 +33,7 @@ inline void avliableList(Bug me,int * res)
 			res[1] = 1;res[2] = 2;res[3] = 3;
 			return;
 			break;
-		case N:
+		case N-1:
 			//int * res = new int[4];
 			res[0] = 3;	//Total
 			res[1] = 3; res[2] = 4; res[3] = 5;
@@ -51,7 +47,7 @@ inline void avliableList(Bug me,int * res)
 			break;
 		}
 		break;
-	case M:
+	case M-1:
 		switch (me.j)
 		{
 		case 0:
@@ -60,7 +56,7 @@ inline void avliableList(Bug me,int * res)
 			res[1] = 0; res[2] = 1; res[3] = 7;
 			return;
 			break;
-		case N:
+		case N-1:
 			//int * res = new int[4];
 			res[0] = 3;	//Total
 			res[1] = 5; res[2] = 6; res[3] = 7;
@@ -83,7 +79,7 @@ inline void avliableList(Bug me,int * res)
 			res[1] = 0; res[2] = 1; res[3] = 2; res[4] = 3; res[5] = 7;
 			return;
 			break;
-		case N:
+		case N-1:
 			//int * res = new int[6];
 			res[0] = 5;	//Total
 			res[1] = 3; res[2] = 4; res[3] = 5; res[4] = 6; res[5] = 7;
