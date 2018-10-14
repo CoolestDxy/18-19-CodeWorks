@@ -1,6 +1,6 @@
 //main.cpp
 //工程运行入口
-#define LAUNCH P107N04
+#define LAUNCH P123N08
 
 void LAUNCH();
 int main(int argc,char * argv[])
