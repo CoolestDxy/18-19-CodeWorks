@@ -27,5 +27,8 @@
     <ClCompile Include="week03.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="week04.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
