@@ -1,6 +1,4 @@
-package Hanyuu;
-
-import Hanyuu.Account;
+package ATM;
 
 import java.util.Scanner;
 

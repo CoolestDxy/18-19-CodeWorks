@@ -1,4 +1,6 @@
-package Hanyuu;
+package ATM;
+
+import ATM.src.ATM;
 
 public class Account {
 	private String userName;
