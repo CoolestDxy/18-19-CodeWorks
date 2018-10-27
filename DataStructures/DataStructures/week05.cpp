@@ -70,6 +70,7 @@ public:
 		std::cout << std::endl;
 	}
 };
+
 void P138N01()
 {
 	Stack<int> exp(30);

@@ -30,6 +30,9 @@
     <ClCompile Include="week04.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="week06.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="week05.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
