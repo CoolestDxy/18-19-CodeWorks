@@ -4,7 +4,7 @@
 > ### 食品清单（x）:
 > - 数据结构
 > - 面向对象程序设计基础（2）
-> - [【笔记】OO&UML](OO&UML/OO_UML.mht)
+> - [【笔记】OO&UML](https://github.com/HanyuuFurude/18-19-CodeWorks/tree/master/OO&UML)
 > - **【Ps 0x00】**:就是个**很简陋**的花式爬坑记录。
 > - **【Ps 0x01】**:对Machine learning感兴趣的阔以移步：[Tensorflow 从入门到调参（x）](https://github.com/Hanyuu-Furude/TensorflowStudy)
 ## Note link
