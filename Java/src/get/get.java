@@ -1,9 +1,6 @@
 package get;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class get {
 	private FileInputStream fis;
@@ -43,11 +40,28 @@ public class get {
 	}
 
 	public static void main(String[] args) {
+
 		try {
-			File file = new File("E:tst.log");
+			FileWriter fw=new FileWriter("E:/a.log");
+			fw.write("市附近的路口附近".toCharArray());
+			fw.flush();
+			fw.write(-1);
+			fw.write('A');
+			fw.close();
+			FileReader fr=new FileReader("E:/a.log");
+			int ch=fr.read();
+			while (ch!=-1)
+			{
+				System.out.print((char)ch);
+				ch=fr.read();
+			}
+
+			File file = new File("E:/tst.log");
 			get a = new get(file);
 			a.write(97);
 			a.write('b');
+			a.write(260);
+			a.write(305);
 			a.write(new String("哈").getBytes());
 			System.out.println(a.available()+"size");
 			int i=a.read();
@@ -59,6 +73,9 @@ public class get {
 
 		} catch (Exception e) {
 			System.out.println(e);
+			e.printStackTrace();
 		}
 	}
 }
+//DataInputStream
+//DataOutputStream
