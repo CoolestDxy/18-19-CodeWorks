@@ -394,7 +394,7 @@ public:
 	{
 		T item;
 		if (!first(item))
-			return false;  //¼ì²éÊÇ·ñÎª¿Õ  
+			return false;
 		do {
 			if (item == element)
 				return true;
@@ -503,7 +503,273 @@ void P201N01()
 	}
 	std::cout << std::endl;
 }
+//P209N05
+//template <typename T>
+//class FreeList
+//{
+//private:
+//	static FreeList<T> *freelist;
+//public:
+//	T element;
+//	FreeList *next;
+//	FreeList(const T& T, FreeList* next = NULL)
+//	{
+//		this->element = T;
+//		this->next = next;
+//	}
+//	FreeList(FreeList* next = NULL);
+//	{
+//		this->next = next;
+//	}
+//	void* operator new(size_t)
+//	{
+//		if (freelist == NULL)
+//			return ::new FreeList;
+//		FreeList<T>* temp = freelist;
+//		freelist = freelist->next; return temp;
+//	}
+//	void operator delete(void*)
+//	{
+//		((FreeList<T>*)ptr)->next = freelist; freelist = (FreeList<T>*)ptr;
+//	}
+//};
+struct Term
+{
+	int power;
+	int cow;
+};
+class Polynomials
+{
+private:
+	static Term * termArray;
+	static int capacity;
+	static int free;
+	int start, finish;
+public:
+	Polynomials()
+	{
+		std::vector<int> a{ 0,0 };
+		input(a);
+	}
+	Polynomials(std::vector<int> inputArray)
+	{
+		input(inputArray);
+	}
+	Polynomials input(std::vector<int> input)
+	{
+		start = (free != 0) ? ++free : free;
+		finish = start;
+		for (int i = 0; i < input.size() / 2; i++)
+		{
+			termArray[start + i].power = input[2 * i];
+			termArray[start + i].cow = input[2 * i + 1];
+			(i == 0) ? finish : ++finish;
+			(i == 0) ? free : ++free;
+		}
+		return *this;
+	}
+	std::string outPut()
+	{
+		using std::string;
+		string temp = "";
+		std::ostringstream oss;
+		for (int i = start; i <= finish; i++)
+		{
+			oss << termArray[i].cow << "*x^" << termArray[i].power;
+			(i == finish) ? (oss << "") : (oss << "+");
+		}
+		temp = oss.str();
+		return temp;
+	}
+	long evaluate(int x)
+	{
+		long res{ 0 };
+		for (int i = start; i <= finish; i++)
+		{
+			res += termArray[i].cow*pow(x, termArray[i].power);
+		}
+		return res;
+	}
+	Polynomials operator*(Polynomials pol)
+	{
+		Polynomials res;
+		res.start = free + 1;
+		res.finish = res.start;
+		termArray[res.start] = { 0,0 };
+		for (int i = start; i <= finish; i++)
+		{
+			for (int j = pol.start; j <= pol.finish; j++)
+			{
+				Term temp = { termArray[i].power + termArray[j].power , termArray[i].cow * termArray[j].cow };
+				for (int k = res.start; k <= res.finish; k++)
+				{
+					if (temp.power < termArray[k].power)
+					{
+						continue;
+					}
+					else if (temp.power == termArray[k].power)
+					{
+						termArray[k].cow += temp.cow;
+						break;
+					}
+					else if (temp.power > termArray[k].power)
+					{
+						(free < res.finish) ? NULL : ++res.finish;
+						++free;
+						for (int l = k; l < finish; l++)
+						{
+							termArray[l + 1] = termArray[l];
+						}
+						termArray[k] = temp;
+						break;
+					}
+				}
+				(free < res.finish) ? NULL : ++res.finish;
+				++free;
+				termArray[res.finish] = temp;
+			}
+		}
+		return res;
+	};
+	Polynomials operator+(Polynomials pol)
+	{
+		Polynomials res;
+		int keyA = start;
+		int keyB = pol.start;
+		--res.finish;
+		--free;
+		while (keyA <= finish && keyB <= pol.finish)
+		{
+			++res.finish;
+			++free;
+			if (termArray[keyA].power == termArray[keyB].power)
+			{
+				termArray[res.finish] = { termArray[keyA].power,termArray[keyA].cow + termArray[keyB].cow };
+				++keyA; ++keyB;
+				continue;
+			}
+			else if (termArray[keyA].power > termArray[keyB].power)
+			{
+				termArray[res.finish] = { termArray[keyA].power,termArray[keyA].cow };
+				++keyA;
+				continue;
+			}
+			else if (termArray[keyA].power < termArray[keyB].power)
+			{
+				termArray[res.finish] = { termArray[keyB].power,termArray[keyB].cow };
+				++keyB;
+				continue;
+			}
+		}
+		if (keyB > pol.finish)
+		{
+			while (keyA <= finish)
+			{
+				++res.finish;
+				++free;
+				termArray[res.finish] = { termArray[keyA].power,termArray[keyA].cow };
+				++keyA;
+			}
+		}
+		else if (keyA > finish)
+		{
+			while (keyB <= pol.finish)
+			{
+				++res.finish;
+				++free;
+				termArray[res.finish] = { termArray[keyB].power,termArray[keyB].cow };
+				++keyB;
+			}
+		}
+		else
+		{
+			return res;
+		}
+		return res;
+	}
+};
+int Polynomials::capacity = 100;
+Term * Polynomials::termArray = new Term[100];
+int Polynomials::free = 0;
+template<class T>
+class CircularList
+{
 
+};
+struct CirData
+{
+	int coef;
+	int exp;
+	CirData * link;
+};
+class CirLink
+{
+public:
+	CirLink()
+	{
+		head=nullptr;
+	}
+	void insert(int coef, int exp)
+	{
+		if (head==nullptr)
+		{
+			head = new CirData;
+			head->coef = coef;
+			head->exp = exp;
+			head->link = head;
+		}
+		CirData * key = head;
+		while (key->exp>exp)
+		{
+			key = key->link;
+		}
+		if (key->exp==exp)
+		{
+			key->coef += coef;
+		}
+		else
+		{
+			CirData * temp = new CirData;
+			temp->coef = coef;
+			temp->exp = exp;
+			temp->link = key->link;
+			key->link = temp;
+		}
+	}
+	std::ostream& operator<<(std::ostream & os)
+	{
+		CirData * key = head;
+		os << key->coef << "x^" << key->exp;
+		while (key->link!=head)
+		{
+			key = key->link;
+			os << "+"<<key->coef << "x^" << key->exp;
+		}
+	}
+	std::istream& operator>> (std::istream &is )
+	{
+		while (is)
+		{
+			int tempCoef, tempExp;
+			is >> tempCoef;
+			if (tempExp)
+			{
+				is >> tempExp;
+			}
+			else
+			{
+				return;
+			}
+
+			//insert();
+		}
+	}
+private:
+	CirData * head;
+};
+void P209N05()
+{
+}
 //P225N02
 class DblListNode {
 	friend class DblList;
