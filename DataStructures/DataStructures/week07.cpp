@@ -502,5 +502,104 @@ void P201N01()
 		lnkl.next_(temp);
 	}
 	std::cout << std::endl;
+}
 
+//P225N02
+class DblListNode {
+	friend class DblList;
+public:
+	DblListNode(int element = 0)
+	{
+		data = element;
+	}
+private:
+	int data;
+	DblListNode*left;
+	DblListNode*right;
+};
+class DblList
+{
+public:
+	DblList()
+	{
+		first = 0;
+	}
+	bool isEmpty()
+	{
+		return !first;
+	}
+	void Delete(DblListNode*x)
+	{
+		if (x == first)throw "Deletion of header node not permitted";
+		else
+		{
+			x->left->right = x->right;
+			x->right->left = x->left;
+			delete x;
+		}
+	}
+	void insert(int element)
+	{
+		DblListNode *temp = new DblListNode(element);
+		if (isEmpty())
+		{
+			first = temp;
+			first->left = first;
+			first->right = first;
+		}
+		else {
+			temp->left = first->left;
+			temp->right = first;
+			first->left->right = temp;
+			first->left = temp;
+		}
+	}
+	void insert(DblListNode* Left, DblListNode*Right, int element)
+	{
+		DblListNode x(element);
+		x.left = Left;
+		x.right = Right;
+		Left->right = &x;
+		Right->left = &x;
+	}
+	void Concatenate(DblList &m)
+	{
+		DblListNode*temp;
+		temp = first->left;
+		temp->right = m.first;
+		(m.first)->left->right = first;
+		first->left = (m.first)->left;
+		(m.first)->left = temp;
+		m.first = 0;
+	}
+	void output()
+	{
+		DblListNode* temp = first;
+		do
+		{
+			std::cout << temp->data << " ";
+			temp = temp->right;
+		} while (temp != (first->left));
+		std::cout << temp->data << std::endl;
+	}
+private:
+	DblListNode*first;
+};
+
+void P225N02()
+{
+	DblList lstExp;
+	for (int i = 0; i < 10; i++)
+	{
+		lstExp.insert(i * 10);
+	}
+	lstExp.output();
+	DblList lstExpN;
+	for (int i = 11; i < 20; i++)
+	{
+		lstExpN.insert(i * 10);
+	}
+	lstExpN.output();
+	lstExp.Concatenate(lstExpN);
+	lstExp.output();
 }
