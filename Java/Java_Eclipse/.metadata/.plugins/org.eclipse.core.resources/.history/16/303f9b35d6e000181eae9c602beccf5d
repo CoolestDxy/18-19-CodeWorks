@@ -1,0 +1,8 @@
+package src;
+
+import java.io.IOException;
+public class TranslateByte {
+	public static void main(String [] args) throws IOException{
+		if	
+	}
+}
