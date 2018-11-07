@@ -1,0 +1,16 @@
+package src;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+public class BenchMarkForArrayListAndLinkedLIst {
+	ArrayList<String> arrList;
+	LinkedList<String> lnkList;
+	public String getValueArr(int ind) {
+		return arrList.get(ind);
+	}
+	public String getValueLst(int ind) {
+		return lnkList.get(ind)
+	}
+}
+

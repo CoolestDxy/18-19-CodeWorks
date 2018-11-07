@@ -1,0 +1,6 @@
+package src;
+
+public class BenchMarkForArrayListAndLinkedLIst {
+	ArrayList<String> arrList;
+	LinkedList<String> arrayList;
+}
