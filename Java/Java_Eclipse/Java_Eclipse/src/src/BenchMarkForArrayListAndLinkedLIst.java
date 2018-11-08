@@ -100,8 +100,6 @@ public class BenchMarkForArrayListAndLinkedLIst {
 		exp.delLnk();
 		endTime=System.currentTimeMillis();
 		System.out.println(endTime-startTime);
-
 	}
-	
 }
 
