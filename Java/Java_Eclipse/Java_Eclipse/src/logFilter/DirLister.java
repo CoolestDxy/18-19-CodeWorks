@@ -13,14 +13,13 @@ import java.util.Comparator;
  * @TODO TODO
  */
 public class DirLister {
+
 	/**
-	 * @author Hanyuu
-	 * @date 2018/11/09
-	 * @return void
-	 * @throws none
 	 * @param file
 	 * @param filter
 	 * @param comparator
+	 * @author Hanyuu
+	 * @date 2018/11/09
 	 */
 	public void listDirectory(File file, FilenameFilter filter, Comparator comparator) {
 		if (!file.exists()) {
@@ -37,5 +36,16 @@ public class DirLister {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @param args
+	 * @author Hanyuu
+	 * @date 2018/11/09
+	 */
+	public static void main(String[] args) {
+		DirLister lister = new DirLister();
+		DirFilter filter = new DirFilter(".+log");
+		lister.listDirectory(new File("c:/Windows"), filter, new DescendingAlphabeticComparator());
 	}
 }
