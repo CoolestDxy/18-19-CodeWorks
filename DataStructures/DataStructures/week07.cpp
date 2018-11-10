@@ -1,8 +1,8 @@
 //week07.cpp
 #include"public.h"
-//P183N01 º¯Êı¼û	int Chain::length() Ê±¼ä¸´ÔÓ¶ÈO£¨n£©¡£
-//P183N02 º¯Êı¼û	int Chain::remove() Ê±¼ä¸´ÔÓ¶ÈO£¨n£©¡£
-//P184N06 ¼ûChain::move()¡£
+//P183N01 å‡½æ•°è§	int Chain::length() æ—¶é—´å¤æ‚åº¦Oï¼ˆnï¼‰ã€‚
+//P183N02 å‡½æ•°è§	int Chain::remove() æ—¶é—´å¤æ‚åº¦Oï¼ˆnï¼‰ã€‚
+//P184N06 è§Chain::move()ã€‚
 class ChainNode
 {
 	friend class Chain;
@@ -51,16 +51,16 @@ public:
 			}
 			if (key == 0)
 			{
-				return 2;//Î´ÕÒµ½
+				return 2;//æœªæ‰¾åˆ°
 			}
 			if (key == first)
 			{
 				first = first->link;
 			}
 			delete[]key;
-			return 1;//É¾³ı³É¹¦
+			return 1;//åˆ é™¤æˆåŠŸ
 		}
-		return 0;//¿ÕÁ´±í
+		return 0;//ç©ºé“¾è¡¨
 	}
 	ChainNode * traverse(ChainNode * flag = nullptr)
 	{
@@ -129,8 +129,8 @@ void P183N01()
 	A.move(2, A.first, B.first);//friend function;
 }
 
-//P194N03 ¼û P194N03()¡£
-//P194N04 ¼û sum(std::list<int> a)¡£
+//P194N03 è§ P194N03()ã€‚
+//P194N04 è§ sum(std::list<int> a)ã€‚
 int sum(std::list<int> a)
 {
 	std::list<int>::iterator n = a.begin();

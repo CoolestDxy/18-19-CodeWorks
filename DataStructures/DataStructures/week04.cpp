@@ -1,6 +1,6 @@
 //week04.cpp
 /*
-	模拟随机行走
+	妯℃嫙闅忔満琛岃蛋
 */
 #include<iostream>
 #include<cstdlib>

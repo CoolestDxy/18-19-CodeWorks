@@ -1,8 +1,8 @@
 //week06.cpp
 #include<iostream>
 //#include"week05.h"
-//P147N01:ÖØĞ´push popº¯Êı
-//P147N02:Ìí¼ÓsizeºÍcapacityº¯Êı
+//P147N01:é‡å†™push popå‡½æ•°
+//P147N02:æ·»åŠ sizeå’Œcapacityå‡½æ•°
 template <typename T>
 class Quene
 {
@@ -105,8 +105,8 @@ void P147N01()
 	arr->print();
 	//std::cout << arr->Capacity();
 }
-//P157N02:¼ÙÉèÃÔ¹¬³ß´çx,y(²»·Á¼ÙÉèx>y£©ÆäÂ·Ïß³¤¶È²»³¬¹ı(x-2)*1/2+y/4(ÕûÊı³ı·¨)*2+2¡£
-//P157N03:µİ¹éÑ°Â··¨
+//P157N02:å‡è®¾è¿·å®«å°ºå¯¸x,y(ä¸å¦¨å‡è®¾x>yï¼‰å…¶è·¯çº¿é•¿åº¦ä¸è¶…è¿‡(x-2)*1/2+y/4(æ•´æ•°é™¤æ³•)*2+2ã€‚
+//P157N03:é€’å½’å¯»è·¯æ³•
 constexpr auto M = 12;
 constexpr auto P = 15;
 int maze[14][17] =

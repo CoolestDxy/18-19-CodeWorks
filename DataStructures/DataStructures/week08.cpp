@@ -13,7 +13,7 @@ class Tree
 {
 public:
 	Tree() { root = new Node<T>; }
-	~Tree() {/*TODOÉ¾³ýÊ÷*/ };
+	~Tree() {/*TODOåˆ é™¤æ ‘*/ };
 	void delTree(Node<T> *node) 
 	{
 		if (node->left) { delTree(node->left); }
