@@ -1,7 +1,6 @@
 package logFilter;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -13,6 +12,7 @@ import java.util.Scanner;
  * @date 2018/11/09
  */
 public class DirLister {
+	private DirFilter filter;
 
 	/**
 	 * @param file
@@ -21,7 +21,7 @@ public class DirLister {
 	 * @author Hanyuu
 	 * @date 2018/11/09
 	 */
-	public void listDirectory(/* File file, */ FilenameFilter filter, Comparator comparator) {
+	public void listDirectory(/* File file, FilenameFilter filter, */ Comparator comparator) {
 		// 用户输入命令行
 		Scanner input = new Scanner(System.in);
 		System.out.println("Please input your filefolder name:");
@@ -32,6 +32,7 @@ public class DirLister {
 		} else if (file.isFile()) {
 			System.out.println("Not a directory");
 		} else {
+			filter = new DirFilter(".+log");
 			File[] files = file.listFiles(filter);
 			System.out.println("File list length:" + Integer.toString(files.length));
 			Arrays.sort(files, comparator);
@@ -50,7 +51,7 @@ public class DirLister {
 	 */
 	public static void main(String[] args) {
 		DirLister lister = new DirLister();
-		DirFilter filter = new DirFilter(".+log");
-		lister.listDirectory(/* new File("c:/Windows"), */filter, new DescendingAlphabeticComparator());
+//		DirFilter filter = new DirFilter(".+log");
+		lister.listDirectory(/* new File("c:/Windows"),filter, */new DescendingAlphabeticComparator());
 	}
 }
