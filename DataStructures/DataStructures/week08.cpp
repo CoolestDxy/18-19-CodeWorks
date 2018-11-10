@@ -1,6 +1,10 @@
 //week08.cpp
 #include "public.h"
 #include <stack>
+//P267N04 树中序遍历的迭代器 查看class inorderIterator
+//P267N06 无递归的前序遍历器 查看class Tree函数	void preorder_noneRecursive()
+//P273N01 计算树中的叶节点并给出时间复杂度	//TODO...
+//P273N04 删除二叉树中所有节点并给出时间复杂度 查看class Tree函数 	void delTree(Node<T> *node)
 template <typename T>
 struct Node
 {
@@ -46,6 +50,25 @@ class Tree
 			preorder(node->right);
 		}
 	}
+	void preorder_noneRecursive()
+	{
+		std::stack<Node<T> *> s;
+		do
+		{
+			std::cout << currentNode.data;
+			if (currentNode == nullptr)
+			{
+				currentNode = s.top()->right;
+				s.pop();
+			}
+			else
+				(currentNode->left)
+				{
+					s.push(currentNode);
+					currentNode = currentNode->left;
+				}
+		} while (!s.empty())
+	}
 	void postorder() { inorder(root); };
 	void postorder(Node<T> *node)
 	{
@@ -78,7 +101,7 @@ class inorderIterator
 		s.pop();
 		T &temp = currentNode->data;
 		currentNode = currentNode->right;
-		return &temp; 	
+		return &temp;
 	}
 
   private:
@@ -93,17 +116,18 @@ class forwardIterator
 	T *next()
 	{
 		T *temp = currentNode.data;
-		if(currentNode==nullptr)
+		if (currentNode == nullptr)
 		{
-			currentNode=s.top()->right;
+			currentNode = s.top()->right;
 			s.pop();
 		}
-		else (currentNode->left)
-		{
-			s.push(currentNode);
-			currentNode = currentNode->left;
-		}
-		if(s.empty())
+		else
+			(currentNode->left)
+			{
+				s.push(currentNode);
+				currentNode = currentNode->left;
+			}
+		if (s.empty())
 		{
 			return nullptr;
 		}
