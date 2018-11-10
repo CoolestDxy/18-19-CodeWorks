@@ -3,8 +3,8 @@
 #include <stack>
 //P267N04 树中序遍历的迭代器 查看class inorderIterator
 //P267N06 无递归的前序遍历器 查看class Tree函数	void preorder_noneRecursive()
-//P273N01 计算树中的叶节点并给出时间复杂度	//TODO...
-//P273N04 删除二叉树中所有节点并给出时间复杂度 查看class Tree函数 	void delTree(Node<T> *node)
+//P273N01 计算树中的叶节点并给出时间复杂度	查看class Tree函数 countLeaf() 时间复杂度O(n)
+//P273N04 删除二叉树中所有节点并给出时间复杂度 查看class Tree函数 	void delTree(Node<T> *node) 时间复杂度O(n)
 template <typename T>
 struct Node
 {
@@ -79,7 +79,15 @@ class Tree
 			postorder(node->right);
 		}
 	}
-
+	long countLeaf()
+	{
+		return countLeaf(root);
+	}
+	long countLeaf(Node<T> * node)
+	{
+		if(node==nullptr) return 1;
+		return countLeaf(node->left)+countLeaf(node->right);
+	}
   private:
 	Node<T> root;
 };
