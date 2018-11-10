@@ -1,7 +1,0 @@
-package src;
-
-public class Hash {
-	public static void main(String args[]) {
-		
-	}
-}

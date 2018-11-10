@@ -127,6 +127,7 @@
     <ClCompile Include="week05.cpp" />
     <ClCompile Include="week06.cpp" />
     <ClCompile Include="week07.cpp" />
+    <ClCompile Include="week08.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="public.h" />

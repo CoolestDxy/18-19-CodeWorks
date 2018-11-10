@@ -39,6 +39,9 @@
     <ClCompile Include="week07.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="week08.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="public.h">
