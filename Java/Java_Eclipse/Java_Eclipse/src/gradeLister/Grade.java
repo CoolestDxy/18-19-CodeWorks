@@ -34,7 +34,7 @@ public class Grade implements java.io.Serializable{
 	 */
 	public void setID(String iD) throws Exception {
 		if (iD.length() != 8) {
-			throw new Exception("the length of ID is invaild.");
+			throw new Exception("the length of ID is invaild.\n输入长度必须为8位");
 		}
 		ID = iD;
 	}
@@ -51,7 +51,7 @@ public class Grade implements java.io.Serializable{
 	 */
 	public void setName(String name) throws Exception {
 		if (name.length() > 5 || name.length() < 2) {
-			throw new Exception("the length of name is invaild.");
+			throw new Exception("the length of name is invaild.\n姓名长度介于2到5个字符");
 		}
 
 		this.name = name;
@@ -69,7 +69,7 @@ public class Grade implements java.io.Serializable{
 	 */
 	public void setGrade(int grade) throws Exception {
 		if (grade > 100 || grade < 0) {
-			throw new Exception("grade invaild.");
+			throw new Exception("grade invaild.\n不能接受的成绩取值");
 		}
 		this.grade = grade;
 	}

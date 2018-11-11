@@ -52,22 +52,32 @@ public class GradeCmder {
 		Scanner cmderLine = new Scanner(System.in);
 		while (true) {
 			System.out
-					.println("【1】read grade book from file;\n【2】add record;\n【4】save;\n【4】print grade book;\n【5】quit");
+					.println("【1】read grade book from file;\n【2】add record;\n【3】save;\n【4】print grade book;\n【5】quit");
 			int caseNumber = cmderLine.nextInt();
 			switch (caseNumber) {
 			// 【1】Read grade book from file
 			case 1:
 				System.out.println("Input the data file name:");
-				file = new File(cmderLine.nextLine());
+				file = new File(cmderLine.next());
 				try {
-					input = new GradeInput(file);
-					output = new GradeOutput(file);
-					while (input.hasNext() != 0) {
+					input=new GradeInput(file);
+					do{
 						grade.add(input.read());
 					}
+					while (true);
+
 				} catch (Exception exp) {
 					System.err.print(exp.getMessage());
+				}finally{
+					try{input.release();}
+					catch(Exception exp){
+						;
+					}
+					
 				}
+				printGradeBook();
+				System.out.println(grade.size());
+				break;
 
 				// 【2】add record
 			case 2:
@@ -86,29 +96,28 @@ public class GradeCmder {
 					System.err.println(exp.getMessage());
 				}
 				grade.add(temp);
+				break;
 				// 【3】save
 			case 3:
-				for (Iterator<Grade> iter = grade.iterator(); iter.hasNext();) {
-					temp = iter.next();
-					try {
-						output.write(temp);
-					} catch (Exception exp) {
-						System.err.println(exp.getMessage());
-					}
-
-				}
-				// [4]print grade book
-			case 4:
-				printGradeBook();
-			case 5:
-				cmderLine.close();
 				try {
-					input.release();
+					output = new GradeOutput(file);
+					for (Iterator<Grade> iter = grade.iterator(); iter.hasNext();) {
+						temp = iter.next();
+						output.write(temp);
+					}
 					output.release();
 				} catch (Exception exp) {
 					System.err.println(exp.getMessage());
 				}
+				break;
+				// [4]print grade book
+			case 4:
+				printGradeBook();
+				break;
+			case 5:
+				cmderLine.close();
 				return;
+				// break;
 			}
 		}
 	}
@@ -119,6 +128,7 @@ public class GradeCmder {
 	 * @date 2018/11/11
 	 */
 	public static void main(String[] args) {
+		// System.out.println(System.getProperty("user.dir"));
 		GradeCmder cmder = new GradeCmder();
 		cmder.cmder();
 	}
