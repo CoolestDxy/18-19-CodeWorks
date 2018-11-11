@@ -2,8 +2,8 @@
 package logFilter;
 
 import java.io.File;
+import java.util.Date;
 import java.io.FilenameFilter;
-//import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -19,7 +19,7 @@ public class ioFile {
 	 * @param fliter     筛选器
 	 * @param comparator
 	 */
-	public void listDirectory(File file, FilenameFilter fliter, DescendingAlphabeticComparator comparator) {
+	public void listDirectory(File file, FilenameFilter fliter, HanyuuFileComparator comparator) {
 		if (!file.exists()) {
 			System.out.println("wrong file path");
 		} else if (file.isFile()) {
@@ -30,20 +30,23 @@ public class ioFile {
 			Arrays.sort(files, comparator);
 			for (int i = 0; i < files.length; i++) {
 				if (files[i].isFile()) {
-					System.out.println(files[i]);
+					Date dt=new Date(files[i].lastModified());
+					System.out.println("AAAA");
+					System.out.println(dt.toString());
+					System.out.println(files[i].toString());
 				}
 			}
 
 		}
 
 	}
-
-	public static void main(String[] args) {
-		ioFile lister = new ioFile();
-		DirFilter fliter = new DirFilter(".+log");
-		DescendingAlphabeticComparator comparator = new DescendingAlphabeticComparator();
-		File file = new File("C:/Windows");
-		lister.listDirectory(file, fliter, comparator);
-	}
+//		已弃用
+//		public static void main(String[] args) {
+//		ioFile lister = new ioFile();
+//		DirFilter fliter = new DirFilter(".+log");
+//		AlphabeticComparator comparator = new AlphabeticComparator();
+//		File file = new File("C:/Windows");
+//		lister.listDirectory(file, fliter, comparator);
+//	}
 
 }
