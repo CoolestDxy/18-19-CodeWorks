@@ -1,23 +1,51 @@
+
 //week08.cpp
+
+
 #include "public.h"
 #include <stack>
-//P267N04 æ ‘ä¸­åºéå†çš„è¿­ä»£å™¨ æŸ¥çœ‹class inorderIterator
-//P267N06 æ— é€’å½’çš„å‰åºéå†å™¨ æŸ¥çœ‹class Treeå‡½æ•°	void preorder_noneRecursive()
-//P273N01 è®¡ç®—æ ‘ä¸­çš„å¶èŠ‚ç‚¹å¹¶ç»™å‡ºæ—¶é—´å¤æ‚åº¦	æŸ¥çœ‹class Treeå‡½æ•° countLeaf() æ—¶é—´å¤æ‚åº¦O(n)
-//P273N04 åˆ é™¤äºŒå‰æ ‘ä¸­æ‰€æœ‰èŠ‚ç‚¹å¹¶ç»™å‡ºæ—¶é—´å¤æ‚åº¦ æŸ¥çœ‹class Treeå‡½æ•° 	void delTree(Node<T> *node) æ—¶é—´å¤æ‚åº¦O(n)
+//P267N04 Ê÷ÖĞĞò±éÀúµÄµü´úÆ÷ ²é¿´class inorderIterator
+//P267N06 ÎŞµİ¹éµÄÇ°Ğò±éÀúÆ÷ ²é¿´class Treeº¯Êı	void preorder_noneRecursive()
+//P273N01 ¼ÆËãÊ÷ÖĞµÄÒ¶½Úµã²¢¸ø³öÊ±¼ä¸´ÔÓ¶È	²é¿´class Treeº¯Êı countLeaf() Ê±¼ä¸´ÔÓ¶ÈO(n)
+//P273N04 É¾³ı¶ş²æÊ÷ÖĞËùÓĞ½Úµã²¢¸ø³öÊ±¼ä¸´ÔÓ¶È ²é¿´class Treeº¯Êı 	void delTree(Node<T> *node) Ê±¼ä¸´ÔÓ¶ÈO(n)
+//P273N10 [ÊµÑéÌâ]¹¹Ôì¿½±´¹¹ÔìËÄÖÖ±éÀúÆ÷£»
+//week08_exp.cpp
+#include"public.h"
+#include<stack>
+#include<queue>
 template <typename T>
 struct Node
 {
-	Node<T> *left;
-	Node<T> *right;
+	Node<T> *left = nullptr;
+	Node<T> *right = nullptr;
 	T data;
 };
 template <typename T>
 class Tree
 {
-  public:
+public:
 	Tree() { root = new Node<T>; }
-	~Tree(){/*TODOåˆ é™¤æ ‘*/};
+	Tree(Tree * const target) {
+		root = new Node<T>();
+		root.data = target->root;
+		copySubTree(this.root, target.root);
+	}
+	void copySubTree(Node<T>* to, const Node<T>* from)
+	{
+		if (from->left)
+		{
+			to->left = new Node<T>();
+			to->left->data = from->left->data;
+			copySubTree(to->left, from->left);
+		}
+		if (from->right)
+		{
+			to->right = new Node<T>();
+			to->right->data = from->right->data;
+			copySubTree(to->right, from->right);
+		}
+	}
+	~Tree() {/*TODOÉ¾³ıÊ÷*/ };
 	void delTree(Node<T> *node)
 	{
 		if (node->left)
@@ -52,6 +80,7 @@ class Tree
 	}
 	void preorder_noneRecursive()
 	{
+		Node<T> * currentNode = root;
 		std::stack<Node<T> *> s;
 		do
 		{
@@ -61,13 +90,12 @@ class Tree
 				currentNode = s.top()->right;
 				s.pop();
 			}
-			else
-				(currentNode->left)
-				{
-					s.push(currentNode);
-					currentNode = currentNode->left;
-				}
-		} while (!s.empty())
+			else if (currentNode->left);
+			{
+				s.push(currentNode);
+				currentNode = currentNode->left;
+			}
+		} while (!s.empty());
 	}
 	void postorder() { inorder(root); };
 	void postorder(Node<T> *node)
@@ -85,17 +113,20 @@ class Tree
 	}
 	long countLeaf(Node<T> * node)
 	{
-		if(node==nullptr) return 1;
-		return countLeaf(node->left)+countLeaf(node->right);
+		if (node == nullptr) return 1;
+		return countLeaf(node->left) + countLeaf(node->right);
 	}
-  private:
+private:
 	Node<T> root;
 };
 template <typename T>
 class inorderIterator
 {
-  public:
-	inorderIterator(Node<T> *node) { currentNode = node; };
+public:
+	inorderIterator(Tree<T> * tree)
+	{
+		currentNode = tree->root;
+	};
 	T *next()
 	{
 		while (currentNode)
@@ -112,15 +143,15 @@ class inorderIterator
 		return &temp;
 	}
 
-  private:
+private:
 	std::stack<Node<T> *> s;
 	Node<T> *currentNode;
 };
 template <typename T>
 class forwardIterator
 {
-  public:
-	forwardIterator(Node<T> *node) { currentNode = node; };
+public:
+	forwardIterator(Tree<T>* tree) { currentNode = tree.root; };
 	T *next()
 	{
 		T *temp = currentNode.data;
@@ -129,12 +160,11 @@ class forwardIterator
 			currentNode = s.top()->right;
 			s.pop();
 		}
-		else
-			(currentNode->left)
-			{
-				s.push(currentNode);
-				currentNode = currentNode->left;
-			}
+		else if (currentNode->left)
+		{
+			s.push(currentNode);
+			currentNode = currentNode->left;
+		}
 		if (s.empty())
 		{
 			return nullptr;
@@ -142,17 +172,93 @@ class forwardIterator
 		return &T;
 	}
 
-  private:
+private:
 	std::stack<Node<T> *> s;
 	Node<T> *currentNode;
 };
+template <typename T>
+class backwardIterator
+{
+public:
+	backwardIterator(Tree<T>* tree)
+	{
+		s = new std::stack<Node<T>*>;
+		currentNode = tree->root;
+		while (currentNode->left || currentNode->right)
+		{
+			s.push(currentNode);
+			if (currentNode->left)
+			{
+				currentNode = currentNode->left;
+			}
+			else
+			{
+				currentNode = currentNode->right;
+			}
+		}
+	}
+	T* next()
+	{
+		if (s.empty)return nullptr;
+		T* temp = currentNode->data;
+		if (currentNode == s.top()->left)
+		{
+			currentNode = s.top()->right;
+			while (currentNode->left || currentNode->right)
+			{
+				s.push(currentNode);
+				if (currentNode->left)
+				{
+					currentNode = currentNode->left;
+				}
+				else
+				{
+					currentNode = currentNode->right;
+				}
+			}
+		}
+		else
+		{
+			currentNode = s.top();
+			s.pop();
+		}
+		return temp;
+	}
+private:
+	std::stack<Node<T>*> s;
+	Node<T> *currentNode;
+};
+template <typename T>
+class leavelIterator
+{
+	leavelIterator(Tree<T> *tree)
+	{
+		q.push(tree->root);
+	}
+	T* next()
+	{
+		T* temp = q.front()->data;
+		if (q.front()->left)
+		{
+			q.push(q.front()->left);
+		}
+		if (q.front()->right)
+		{
+			q.push(q.front()->right);
+		}
+		q.pop();
+	}
+private:
+	std::queue<Node<T>*> q;
+};
+
 Tree<int>;
-void P267N04() 
+void P267N04()
 {
 	//TODO..
-	//æ·»åŠ æ¼”ç¤ºä»£ç 
+	//Ìí¼ÓÑİÊ¾´úÂë
 }
-//P277N01 ç»™çº¿ç´¢äºŒå‰æ ‘çš„æŒ‡å®šèŠ‚ç‚¹çš„å·¦å­©å­æ’å…¥ä¸€ä¸ªæŒ‡å®šèŠ‚ç‚¹å¹¶å°†å…¶å·¦å­©å­ä½œä¸ºå¾…æ’å…¥èŠ‚ç‚¹çš„å·¦å­©å­æ’å…¥
+//P277N01 ¸øÏßË÷¶ş²æÊ÷µÄÖ¸¶¨½ÚµãµÄ×óº¢×Ó²åÈëÒ»¸öÖ¸¶¨½Úµã²¢½«Æä×óº¢×Ó×÷Îª´ı²åÈë½ÚµãµÄ×óº¢×Ó²åÈë
 template<typename T>
 struct ThreadNode
 {
@@ -172,8 +278,9 @@ public:
 	{
 		if (node->leftChild != nullptr)remove(node->leftChild);
 		if (node->rightChild != nullptr)remove(node->rightChild);
-		if(node!=nullptr)delete[] node;
+		if (node != nullptr)delete[] node;
 	}
 private:
 	ThreadNode<T> * root;
 };
+
