@@ -28,13 +28,18 @@ public class GradeCmder {
 	private GradeOutput output;
 	private File file;
 
+	GradeCmder()
+	{
+		grade=new ArrayList<Grade>();
+	}
 	public void printGradeBook() {
-		if(grade.isEmpty()) {
+		if (grade.isEmpty()) {
 			return;
-		}
-		for (Iterator<Grade> iter = grade.iterator(); iter.hasNext();) {
-			Grade temp = iter.next();
-			System.out.println(temp.getID() + "\t" + temp.getName() + "\t" + temp.getGrade());
+		} else {
+			for (Iterator<Grade> iter = grade.iterator(); iter.hasNext();) {
+				Grade temp = iter.next();
+				System.out.println(temp.getID() + "\t" + temp.getName() + "\t" + temp.getGrade());
+			}
 		}
 	}
 
@@ -45,9 +50,9 @@ public class GradeCmder {
 	 */
 	public void cmder() {
 		Scanner cmderLine = new Scanner(System.in);
-
 		while (true) {
-			System.out.println("【1】read grade book from file;\n【2】add record;\n【4】save;\n【4】print grade book;\n【5】quit");
+			System.out
+					.println("【1】read grade book from file;\n【2】add record;\n【4】save;\n【4】print grade book;\n【5】quit");
 			int caseNumber = cmderLine.nextInt();
 			switch (caseNumber) {
 			// 【1】Read grade book from file
@@ -64,15 +69,14 @@ public class GradeCmder {
 					System.err.print(exp.getMessage());
 				}
 
-			// 【2】add record
+				// 【2】add record
 			case 2:
 //				cmderLine.close();
 //				cmderLine=new Scanner(System.in);
-				String tempStr;
 				System.out.println("Input new student's ID:");
 				Grade temp = new Grade();
 				try {
-					
+
 					temp.setID(cmderLine.next());
 					System.out.println("Input student's name:");
 					temp.setName(cmderLine.next());
@@ -82,21 +86,29 @@ public class GradeCmder {
 					System.err.println(exp.getMessage());
 				}
 				grade.add(temp);
-			//【3】save
+				// 【3】save
 			case 3:
 				for (Iterator<Grade> iter = grade.iterator(); iter.hasNext();) {
 					temp = iter.next();
 					try {
 						output.write(temp);
-					}catch(Exception exp) {
+					} catch (Exception exp) {
 						System.err.println(exp.getMessage());
 					}
 
 				}
-			//[4]print grade book
+				// [4]print grade book
 			case 4:
 				printGradeBook();
-
+			case 5:
+				cmderLine.close();
+				try {
+					input.release();
+					output.release();
+				} catch (Exception exp) {
+					System.err.println(exp.getMessage());
+				}
+				return;
 			}
 		}
 	}
