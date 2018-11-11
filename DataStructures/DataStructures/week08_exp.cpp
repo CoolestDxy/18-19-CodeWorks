@@ -1,23 +1,39 @@
-//week08.cpp
-#include "public.h"
-#include <stack>
-//P267N04 树中序遍历的迭代器 查看class inorderIterator
-//P267N06 无递归的前序遍历器 查看class Tree函数	void preorder_noneRecursive()
-//P273N01 计算树中的叶节点并给出时间复杂度	查看class Tree函数 countLeaf() 时间复杂度O(n)
-//P273N04 删除二叉树中所有节点并给出时间复杂度 查看class Tree函数 	void delTree(Node<T> *node) 时间复杂度O(n)
+//week08_exp.cpp
+#include"public.h"
+#include<stack>
 template <typename T>
 struct Node
 {
-	Node<T> *left;
-	Node<T> *right;
+	Node<T> *left = nullptr;
+	Node<T> *right = nullptr;
 	T data;
 };
 template <typename T>
 class Tree
 {
-  public:
+public:
 	Tree() { root = new Node<T>; }
-	~Tree(){/*TODO删除树*/};
+	Tree(Tree * const target) {
+		root = new Node<T>();
+		root.data = target->root;
+		copySubTree(this.root, target.root);
+	}
+	void copySubTree(Node<T>* to,const Node<T>* from)
+	{
+		if (from->left) 
+		{
+			to->left = new Node<T>();
+			to->left->data = from->left->data;
+			copySubTree(to->left, from->left);
+		}
+		if (from->right)
+		{
+			to->right = new Node<T>();
+			to->right->data = from->right->data;
+			copySubTree(to->right, from->right);
+		}
+	}
+	~Tree() {/*TODOɾ����*/ };
 	void delTree(Node<T> *node)
 	{
 		if (node->left)
@@ -63,10 +79,10 @@ class Tree
 			}
 			else
 				(currentNode->left)
-				{
-					s.push(currentNode);
-					currentNode = currentNode->left;
-				}
+			{
+				s.push(currentNode);
+				currentNode = currentNode->left;
+			}
 		} while (!s.empty())
 	}
 	void postorder() { inorder(root); };
@@ -85,16 +101,16 @@ class Tree
 	}
 	long countLeaf(Node<T> * node)
 	{
-		if(node==nullptr) return 1;
-		return countLeaf(node->left)+countLeaf(node->right);
+		if (node == nullptr) return 1;
+		return countLeaf(node->left) + countLeaf(node->right);
 	}
-  private:
+private:
 	Node<T> root;
 };
 template <typename T>
 class inorderIterator
 {
-  public:
+public:
 	inorderIterator(Node<T> *node) { currentNode = node; };
 	T *next()
 	{
@@ -112,14 +128,14 @@ class inorderIterator
 		return &temp;
 	}
 
-  private:
+private:
 	std::stack<Node<T> *> s;
 	Node<T> *currentNode;
 };
 template <typename T>
 class forwardIterator
 {
-  public:
+public:
 	forwardIterator(Node<T> *node) { currentNode = node; };
 	T *next()
 	{
@@ -131,10 +147,10 @@ class forwardIterator
 		}
 		else
 			(currentNode->left)
-			{
-				s.push(currentNode);
-				currentNode = currentNode->left;
-			}
+		{
+			s.push(currentNode);
+			currentNode = currentNode->left;
+		}
 		if (s.empty())
 		{
 			return nullptr;
@@ -142,38 +158,59 @@ class forwardIterator
 		return &T;
 	}
 
-  private:
+private:
 	std::stack<Node<T> *> s;
 	Node<T> *currentNode;
 };
-Tree<int>;
-void P267N04() 
-{
-	//TODO..
-	//添加演示代码
-}
-//P277N01 给线索二叉树的指定节点的左孩子插入一个指定节点并将其左孩子作为待插入节点的左孩子插入
-template<typename T>
-struct ThreadNode
-{
-	bool leftNode;
-	bool rightNode;
-	ThreadNode<T> * leftChild;
-	ThreadNode<T> * rightChild;
-	T data;
-};
-template<typename T>
-class ThreadNodeTree
+template <typename T>
+class backwardIterator
 {
 public:
-	ThreadNodeTree() { root = nullptr; }
-	~ThreadNodeTree() { remove(root); }
-	void remove(ThreadNode<T>* node)
+	backwardIterator()
 	{
-		if (node->leftChild != nullptr)remove(node->leftChild);
-		if (node->rightChild != nullptr)remove(node->rightChild);
-		if(node!=nullptr)delete[] node;
+		s = new std::stack<Node<T>*>;
+		currentNode = root;
+		while (currentNode->left||currentNode->right)
+		{
+			s.push(currentNode);
+			if(currentNode->left)
+			{
+				currentNode = currentNode->left;
+			}
+			else
+			{
+				currentNode = currentNode->right;
+			}
+		}
+	}
+	T* next()
+	{
+		if (s.empty)return nullptr;
+		T* temp = currentNode->data;
+		if (currentNode == s.top()->left)
+		{
+			currentNode = s.top()->right;
+			while (currentNode->left || currentNode->right)
+			{
+				s.push(currentNode);
+				if (currentNode->left)
+				{
+					currentNode = currentNode->left;
+				}
+				else
+				{
+					currentNode = currentNode->right;
+				}
+			}
+		}
+		else
+		{
+			currentNode = s.top();
+			s.pop();
+		}
+		return temp;
 	}
 private:
-	ThreadNode<T> * root;
+	std::stack<Node<T>*> s;
+	Node<T> *currentNode;
 };
