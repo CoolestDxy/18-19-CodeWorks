@@ -31,6 +31,9 @@ public class HanyuuFileComparator implements Comparator<File> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @override @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+	 */
 	@Override
 	public int compare(File a, File b) {
 //		return flag * (int)((a.lastModified()-b.lastModified()));
