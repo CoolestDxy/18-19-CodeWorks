@@ -2,7 +2,7 @@ package logFilter;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Comparator;
+// import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Date;
 
@@ -56,6 +56,7 @@ public class DirLister {
 				}
 			}
 		}
+		input.close();
 	}
 
 	/**
