@@ -17,7 +17,7 @@ import java.lang.Exception;
  * @date 2018/11/11
  * @TODO TODO
  */
-public class Grade {
+public class Grade implements java.io.Serializable{
 	private String ID;
 	private String name;
 	private int grade;
