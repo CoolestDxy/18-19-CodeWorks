@@ -4,11 +4,11 @@
 
 #include "public.h"
 #include <stack>
-//P267N04 Ê÷ÖĞĞò±éÀúµÄµü´úÆ÷ ²é¿´class inorderIterator
-//P267N06 ÎŞµİ¹éµÄÇ°Ğò±éÀúÆ÷ ²é¿´class Treeº¯Êı	void preorder_noneRecursive()
-//P273N01 ¼ÆËãÊ÷ÖĞµÄÒ¶½Úµã²¢¸ø³öÊ±¼ä¸´ÔÓ¶È	²é¿´class Treeº¯Êı countLeaf() Ê±¼ä¸´ÔÓ¶ÈO(n)
-//P273N04 É¾³ı¶ş²æÊ÷ÖĞËùÓĞ½Úµã²¢¸ø³öÊ±¼ä¸´ÔÓ¶È ²é¿´class Treeº¯Êı 	void delTree(Node<T> *node) Ê±¼ä¸´ÔÓ¶ÈO(n)
-//P273N10 [ÊµÑéÌâ]¹¹Ôì¿½±´¹¹ÔìËÄÖÖ±éÀúÆ÷£»
+//P267N04 æ ‘ä¸­åºéå†çš„è¿­ä»£å™¨ æŸ¥çœ‹class inorderIterator
+//P267N06 æ— é€’å½’çš„å‰åºéå†å™¨ æŸ¥çœ‹class Treeå‡½æ•°	void preorder_noneRecursive()
+//P273N01 è®¡ç®—æ ‘ä¸­çš„å¶èŠ‚ç‚¹å¹¶ç»™å‡ºæ—¶é—´å¤æ‚åº¦	æŸ¥çœ‹class Treeå‡½æ•° countLeaf() æ—¶é—´å¤æ‚åº¦O(n)
+//P273N04 åˆ é™¤äºŒå‰æ ‘ä¸­æ‰€æœ‰èŠ‚ç‚¹å¹¶ç»™å‡ºæ—¶é—´å¤æ‚åº¦ æŸ¥çœ‹class Treeå‡½æ•° 	void delTree(Node<T> *node) æ—¶é—´å¤æ‚åº¦O(n)
+//P273N10 [å®éªŒé¢˜]æ„é€ æ‹·è´æ„é€ å››ç§éå†å™¨ï¼›
 //week08_exp.cpp
 #include"public.h"
 #include<stack>
@@ -45,7 +45,7 @@ public:
 			copySubTree(to->right, from->right);
 		}
 	}
-	~Tree() {/*TODOÉ¾³ıÊ÷*/ };
+	~Tree() {/*TODOåˆ é™¤æ ‘*/ };
 	void delTree(Node<T> *node)
 	{
 		if (node->left)
@@ -256,9 +256,9 @@ Tree<int>;
 void P267N04()
 {
 	//TODO..
-	//Ìí¼ÓÑİÊ¾´úÂë
+	//æ·»åŠ æ¼”ç¤ºä»£ç 
 }
-//P277N01 ¸øÏßË÷¶ş²æÊ÷µÄÖ¸¶¨½ÚµãµÄ×óº¢×Ó²åÈëÒ»¸öÖ¸¶¨½Úµã²¢½«Æä×óº¢×Ó×÷Îª´ı²åÈë½ÚµãµÄ×óº¢×Ó²åÈë
+//P277N01 ç»™çº¿ç´¢äºŒå‰æ ‘çš„æŒ‡å®šèŠ‚ç‚¹çš„å·¦å­©å­æ’å…¥ä¸€ä¸ªæŒ‡å®šèŠ‚ç‚¹å¹¶å°†å…¶å·¦å­©å­ä½œä¸ºå¾…æ’å…¥èŠ‚ç‚¹çš„å·¦å­©å­æ’å…¥
 template<typename T>
 struct ThreadNode
 {
@@ -272,6 +272,7 @@ template<typename T>
 class ThreadNodeTree
 {
 public:
+	friend class ThreadNodeTreeIterator;
 	ThreadNodeTree() { root = nullptr; }
 	~ThreadNodeTree() { remove(root); }
 	void remove(ThreadNode<T>* node)
@@ -282,5 +283,12 @@ public:
 	}
 private:
 	ThreadNode<T> * root;
+};
+template <typename T>
+class ThreadNodeTreeIterator {
+public:
+
+private:
+
 };
 
