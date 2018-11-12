@@ -7,19 +7,14 @@ public class ATM {
 	/*
 	 * Status: -1:尚未登陆 0:已登录 1:查询 2:存款 3:取款 4:退出
 	 */
-	public static Scanner reader = new Scanner(System.in);
+	public static Scanner reader;
 	private int status = -1;
 	private Account user;
 	private HashMap<String,Account> database;
 
 	ATM() {
+		reader=new Scanner(System.in);
 		database=new HashMap<String,Account>();
-	}
-
-	public static void main(String[] args) {
-
-		ATM exp=new ATM();
-		exp.menuManager();
 	}
 
 	public boolean menuManager() {
@@ -48,8 +43,6 @@ public class ATM {
 					select = ATM.reader.nextInt();
 				}
 				else {
-					ATM.reader.close();
-					ATM.reader=new Scanner(System.in);
 					break;
 				}
 				String tempUsername;
@@ -86,7 +79,7 @@ public class ATM {
 					System.out.println("[password]");
 					tempPassword = ATM.reader.next();
 					// login
-					if (database.get(tempUsername)!=null&&database.get(tempUsername).getPassword().equals(tempPassword)) {
+					if (database.get(tempUsername)!=null&&database.get(tempUsername).getPassword().equals(MD5Util.MD5(tempPassword))) {
 						status = 0;
 						System.out.println("[info] login success.");
 						break;
@@ -142,7 +135,12 @@ public class ATM {
 				break;
 			case 4:// 退出
 				status = -1;
+				break;
 			}
 		}
+	}
+	public static void main(String[] args) {
+		ATM exp=new ATM();
+		exp.menuManager();
 	}
 }

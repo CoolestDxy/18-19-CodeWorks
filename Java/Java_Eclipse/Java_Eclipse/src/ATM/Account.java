@@ -1,6 +1,7 @@
 package ATM;
 
 import java.time.LocalTime;
+
 /**
  * @typename Account
  * @package ATM
@@ -90,7 +91,7 @@ public class Account {
 
 	Account(String userName, String password) {
 		this.userName = userName;
-		this.password = password;
+		this.password = MD5Util.MD5(password);
 		this.interest=0.05;
 		this.balance += balance;
 	}
@@ -104,7 +105,7 @@ public class Account {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password =MD5Util.MD5(password);
 	}
 
 	public String getPassword() {
