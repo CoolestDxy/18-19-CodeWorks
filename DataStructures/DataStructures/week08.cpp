@@ -291,15 +291,40 @@ public:
 		root->leftChild = sub;
 		root->leftNode = true;
 	}
-	//void 
+	void preorder()
+	{
+		ThreadNode<T> current = root;
+		do
+		{
+			std::cout << current.data;
+			if (!current.leftNode)
+			{
+				current = current.leftChild;
+			}
+			else if(!current.rightNode)
+			{
+				current = current.rightChild;
+			}
+			else
+			{
+				current = current.rightChild->rightChild;
+			}
+		}
+		while (current.rightChild != root);
+
+	}
 private:
 	ThreadNode<T> * root;
 };
 template <typename T>
 class ThreadNodeTreeIterator {
 public:
-
+	ThreadNodeTreeIterator(ThreadNodeTree<T> tree)
+	{
+		current = tree.root;
+	}
 private:
+	ThreadNode<T> current;
 
 };
 
