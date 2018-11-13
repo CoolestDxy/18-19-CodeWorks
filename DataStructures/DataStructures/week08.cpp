@@ -287,7 +287,7 @@ public:
 		sub.leftChild = root->leftChild;
 		sub.rightChild = root.rightChild;
 		sub.leftNode = root->leftNode;
-		sub.rightNode = root->rightNode;
+		sub.rightNode = root->rightNode;	
 		root->leftChild = sub;
 		root->leftNode = true;
 	}
@@ -295,11 +295,11 @@ public:
 private:
 	ThreadNode<T> * root;
 };
-template <typename T>
-class ThreadNodeTreeIterator {
-public:
-
-private:
-
-};
+//template <typename T>
+//class ThreadNodeTreeIterator {
+//public:
+//
+//private:
+//
+//};
 

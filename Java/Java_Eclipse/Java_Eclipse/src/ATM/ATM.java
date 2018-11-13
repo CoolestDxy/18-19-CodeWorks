@@ -10,11 +10,11 @@ public class ATM {
 	public static Scanner reader;
 	private int status = -1;
 	private Account user;
-	private HashMap<String,Account> database;
+	private HashMap<String, Account> database;
 
 	ATM() {
-		reader=new Scanner(System.in);
-		database=new HashMap<String,Account>();
+		reader = new Scanner(System.in);
+		database = new HashMap<String, Account>();
 	}
 
 	public boolean menuManager() {
@@ -38,12 +38,9 @@ public class ATM {
 			case -1:// 尚未登陆
 				System.out.println("\n======\nWelcome\n====");
 				System.out.println("menu:\n\t1:new Account\n\t2:Login\n");
-				int select;
-				if(ATM.reader.hasNextInt()) {
+				int select = 1;
+				if (ATM.reader.hasNextInt()) {
 					select = ATM.reader.nextInt();
-				}
-				else {
-					break;
 				}
 				String tempUsername;
 				String tempPassword;
@@ -52,24 +49,23 @@ public class ATM {
 					System.out.println("Hi,Please register your account now!");
 					System.out.println("\t Input your user name:");
 					tempUsername = ATM.reader.next();
-					if(
-							!((tempUsername.charAt(0)>='A' && tempUsername.charAt(0)<='Z')||
-							(tempUsername.charAt(0)>='a'&&tempUsername.charAt(0)<='z'))) {
+					if (!((tempUsername.charAt(0) >= 'A' && tempUsername.charAt(0) <= 'Z')
+							|| (tempUsername.charAt(0) >= 'a' && tempUsername.charAt(0) <= 'z'))) {
 						System.out.println("用户名必须以字母开头");
 						break;
 					}
-					if(database.get(tempUsername)!=null) {
+					if (database.get(tempUsername) != null) {
 						System.out.println("用户名已被占用");
 						break;
 					}
 					System.out.println("\t Hi " + tempUsername + ". Please input your password here:");
 					tempPassword = ATM.reader.next();
-					if(tempPassword.length()<9) {
+					if (tempPassword.length() < 9) {
 						System.out.println("密码必须大于8位");
 						break;
 					}
 					System.out.println("Register success, now you can login with your new account.");
-					Account temp=new Account(tempUsername,tempPassword);
+					Account temp = new Account(tempUsername, tempPassword);
 					database.put(tempUsername, temp);
 					break;
 				case 2:
@@ -79,17 +75,19 @@ public class ATM {
 					System.out.println("[password]");
 					tempPassword = ATM.reader.next();
 					// login
-					if (database.get(tempUsername)!=null&&database.get(tempUsername).getPassword().equals(MD5Util.MD5(tempPassword))) {
+					if (database.get(tempUsername) != null
+							&& database.get(tempUsername).getPassword().equals(MD5Util.MD5(tempPassword))) {
 						status = 0;
 						System.out.println("[info] login success.");
+						user=database.get(tempUsername);
 						break;
 					} else {
 						System.out.println("[error] login failed.");
 						break;
 					}
-					default:
-						System.out.println("Invaild input");
-						break;
+				default:
+					System.out.println("Invaild input");
+					break;
 				}
 
 				break;
@@ -139,8 +137,9 @@ public class ATM {
 			}
 		}
 	}
+
 	public static void main(String[] args) {
-		ATM exp=new ATM();
+		ATM exp = new ATM();
 		exp.menuManager();
 	}
 }

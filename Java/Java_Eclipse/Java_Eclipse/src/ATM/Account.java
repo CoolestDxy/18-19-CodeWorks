@@ -90,6 +90,7 @@ public class Account {
 	}
 
 	Account(String userName, String password) {
+		this.lastChange=LocalTime.now();
 		this.userName = userName;
 		this.password = MD5Util.MD5(password);
 		this.interest=0.05;
