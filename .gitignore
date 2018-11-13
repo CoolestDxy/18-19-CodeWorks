@@ -8,3 +8,6 @@
 .vscode
 /DataStructures/DataStructures/x64/Debug
 /DataStructures/x64/Debug
+*.swp
+*.un~
+*.cpp~
