@@ -252,7 +252,6 @@ private:
 	std::queue<Node<T>*> q;
 };
 
-Tree<int>;
 void P267N04()
 {
 	//TODO..
@@ -270,10 +269,13 @@ struct ThreadNode
 	T data;
 };
 template<typename T>
+class ThreadNodeTreeIterator;
+template<typename T>
 class ThreadNodeTree
 {
+	friend class ThreadNodeTreeIterator<T>;
 public:
-	friend class ThreadNodeTreeIterator;
+	//friend class ThreadNodeTreeIterator;
 	ThreadNodeTree() { root = nullptr; }
 	~ThreadNodeTree() { remove(root); }
 	void remove(ThreadNode<T>* node)
@@ -287,7 +289,7 @@ public:
 		sub.leftChild = root->leftChild;
 		sub.rightChild = root.rightChild;
 		sub.leftNode = root->leftNode;
-		sub.rightNode = root->rightNode;	
+		sub.rightNode = root->rightNode;
 		root->leftChild = sub;
 		root->leftNode = true;
 	}
@@ -301,7 +303,7 @@ public:
 			{
 				current = current.leftChild;
 			}
-			else if(!current.rightNode)
+			else if (!current.rightNode)
 			{
 				current = current.rightChild;
 			}
@@ -309,22 +311,21 @@ public:
 			{
 				current = current.rightChild->rightChild;
 			}
-		}
-		while (current.rightChild != root);
+		} while (current.rightChild != root);
 
 	}
 private:
 	ThreadNode<T> * root;
 };
-template <typename T>
-class ThreadNodeTreeIterator {
+template<typename T>
+class ThreadNodeTreeIterator
+{
 public:
 	ThreadNodeTreeIterator(ThreadNodeTree<T> tree)
-	{	
+	{
 		current = tree.root;
 	}
 private:
 	ThreadNode<T> current;
 
 };
-
