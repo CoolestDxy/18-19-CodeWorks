@@ -259,6 +259,7 @@ void P267N04()
 	//添加演示代码
 }
 //P277N01 给线索二叉树的指定节点的左孩子插入一个指定节点并将其左孩子作为待插入节点的左孩子插入
+//P278N04 前序遍历线索树指出时间空间复杂度
 template<typename T>
 struct ThreadNode
 {
@@ -281,6 +282,16 @@ public:
 		if (node->rightChild != nullptr)remove(node->rightChild);
 		if (node != nullptr)delete[] node;
 	}
+	void insertL(ThreadNode<T>* root, ThreadNode<T>sub)
+	{
+		sub.leftChild = root->leftChild;
+		sub.rightChild = root.rightChild;
+		sub.leftNode = root->leftNode;
+		sub.rightNode = root->rightNode;
+		root->leftChild = sub;
+		root->leftNode = true;
+	}
+	//void 
 private:
 	ThreadNode<T> * root;
 };
