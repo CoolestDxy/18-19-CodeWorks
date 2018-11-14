@@ -76,7 +76,6 @@ public class Account {
 					(temp.getMinute()-lastChange.getMinute())*60+
 					(temp.getHour()-lastChange.getHour())*3600
 					);
-			
 			this.balance+=this.balance*(rate/3)*interest;
 			lastChange=LocalTime.now();
 			this.balance += balance;
