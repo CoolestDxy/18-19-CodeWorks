@@ -1,7 +1,4 @@
-
 //week08.cpp
-
-
 #include "public.h"
 #include <stack>
 //P267N04 树中序遍历的迭代器 查看class inorderIterator
@@ -10,11 +7,11 @@
 //			时间复杂度O(n)
 //P273N04 删除二叉树中所有节点并给出时间复杂度 查看class Tree函数 	void delTree(Node<T> *node)
 //			时间复杂度O(n)
-//P273N10 [实验题]构造拷贝构造四种遍历器；
-//week08_exp.cpp
+//P273N10 [实验题]构造拷贝构造四种遍历器
 #include"public.h"
 #include<stack>
 #include<queue>
+
 
 template <typename T>
 struct Node
@@ -30,6 +27,11 @@ struct Node
 };
 template <typename T>
 class inorderIterator;
+template <typename T>
+class Tree;
+template  <typename T>
+void displaGenerateTree(Tree<T> * tree);
+
 template <typename T>
 class Tree
 {
@@ -58,7 +60,7 @@ public:
 			copySubTree(to->right, from->right);
 		}
 	}
-	~Tree() {/*TODO删除树*/ };
+	~Tree() { delTree(root); };
 	void delTree()
 	{
 		delTree(root);
