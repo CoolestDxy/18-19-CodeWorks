@@ -316,10 +316,12 @@ void P267N04()
 	std::cout << std::endl;
 	inorderIterator<int> * intIter = new inorderIterator<int>(tree);
 	int * ptr;
-	do
-	{
-		std::cout<<*(ptr = intIter->next())<<"\t";
-	} while (ptr != nullptr);
+	ptr = intIter->next();
+	while (ptr != nullptr) {
+		std::cout << *ptr << "\t";
+		ptr = intIter->next();
+	}
+	std::cout << std::endl;
 	tree->delTree();
 	std::cout << tree->countLeaf();
 	std::cout << std::endl;
