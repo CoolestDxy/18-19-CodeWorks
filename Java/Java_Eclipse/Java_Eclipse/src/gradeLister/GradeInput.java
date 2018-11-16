@@ -26,6 +26,13 @@ import java.lang.ClassNotFoundException;
 public class GradeInput {
 	ObjectInputStream input;
 
+	/**
+	 * 从文件加载对象
+	 * @param file 文件名
+	 * @throws IOException
+	 * @author Hanyuu
+	 * @date 2018/11/17
+	 */
 	GradeInput(File file) throws IOException {
 		if (!file.exists()) {
 			throw new IOException("bad file access.");
@@ -34,21 +41,25 @@ public class GradeInput {
 	}
 
 	/**
+	 * 释放资源
 	 * @throws IOException
 	 * @author Hanyuu
-	 * @date 2018/11/11
+	 * @date 2018/11/17
 	 */
 	public void release() throws IOException {
 		input.close();
 	}
 
 	/**
-	 * 
+	 *  读取函数
+	 * @return Object 返回对象
+	 * @throws IOException
+	 * @throws ClassNotFoundException
 	 * @author Hanyuu
-	 * @date 2018/11/11
+	 * @date 2018/11/17
 	 */
-	public Grade read() throws IOException, ClassNotFoundException {
-		return (Grade) input.readObject();
+	public Object read() throws IOException, ClassNotFoundException {
+		return input.readObject();
 	}
 	public int hasNext() throws IOException{
 		return input.available();

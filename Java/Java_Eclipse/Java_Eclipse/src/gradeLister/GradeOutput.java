@@ -40,8 +40,15 @@ public class GradeOutput{
 	public void release() throws IOException{
 		output.close();
 	}
-	public void write(Grade grade)throws IOException{
-		output.writeObject(grade);
+	/** 
+	 * 写入对象
+	 * @param grade
+	 * @throws IOException
+	 * @author Hanyuu
+	 * @date 2018/11/17
+	 */
+	public void write(Object obj)throws IOException{
+		output.writeObject(obj);
 	}
 
 }
