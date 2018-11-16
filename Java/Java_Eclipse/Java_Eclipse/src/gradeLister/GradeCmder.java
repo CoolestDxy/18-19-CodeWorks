@@ -7,12 +7,11 @@
  */
 package gradeLister;
 
+import java.io.File;
 // import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.io.File;
-import java.lang.Exception;
 
 /**
  * @typename GradeCmder
