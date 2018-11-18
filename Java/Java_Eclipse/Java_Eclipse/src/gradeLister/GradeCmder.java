@@ -31,10 +31,12 @@ public class GradeCmder {
 	private GradeInput input;
 	private GradeOutput output;
 	private File file;
+	private NameRandomizer nr;
 
 	GradeCmder() {
 //		grade=new ArrayList<Grade>();
 		gradeMap = new HashMap<String, Grade>();
+		nr = new NameRandomizer();
 	}
 
 	public void printGradeBook() {
@@ -80,7 +82,7 @@ public class GradeCmder {
 					input = new GradeInput(file);
 					do {
 //						grade.add(input.read());
-						gradeMap=(HashMap<String,Grade>)input.read();
+						gradeMap = (HashMap<String, Grade>) input.read();
 						input.release();
 					} while (true);
 
@@ -108,7 +110,7 @@ public class GradeCmder {
 				try {
 
 					temp.setID(cmderLine.next());
-					if(gradeMap.containsKey(temp.getID())) {
+					if (gradeMap.containsKey(temp.getID())) {
 						System.out.println("The ID already exists.\n add operation failed.");
 						break;
 					}
@@ -140,9 +142,31 @@ public class GradeCmder {
 			case 4:
 				printGradeBook();
 				break;
-			//	【5】:randomize
+			// 【5】:randomize
 			case 5:
-				//TODO..
+				String tempID = nr.getRandomID();
+				Grade tempGrade=new Grade();
+				System.out.println("The number of students you want to generate:");
+				int number = cmderLine.nextInt();
+				if (number<=0) {
+					System.out.println("You can't generate that number of students.");
+					break;
+				}
+				for (int i=0 ;i<number;i++) {
+					while (gradeMap.containsKey(tempID)) {
+						tempID = nr.getRandomID();
+				}
+					try {
+					tempGrade.setID(tempID);
+					tempGrade.setName(nr.getRandomName());
+					tempGrade.setGrade(nr.getRandomScore());
+					gradeMap.put(tempID, tempGrade);
+					}
+					catch(Exception e){
+						System.err.println("Gererate exception, add filed;");;
+					}
+				}
+
 				break;
 			case 6:
 				cmderLine.close();
