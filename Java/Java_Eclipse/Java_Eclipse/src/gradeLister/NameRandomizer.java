@@ -36,10 +36,10 @@ public class NameRandomizer {
 		return random.nextInt(101);
 	}
 	public String getRandomID() {
-		String a=new String();
+		StringBuffer buffer=new StringBuffer();
 		for	(int i=0;i<8;i++) {
-			a.concat(((Integer)random.nextInt(10)).toString());	
+			buffer.append(((Integer)random.nextInt(10)).toString());
 		}
-		return a;
+		return buffer.toString();
 	}
 }

@@ -50,8 +50,8 @@ public class Grade implements java.io.Serializable{
 	 * @param name name
 	 */
 	public void setName(String name) throws Exception {
-		if (name.length() > 5 || name.length() < 2) {
-			throw new Exception("the length of name is invaild.\n姓名长度介于2到5个字符");
+		if (name.length() <1) {
+			throw new Exception("the length of name is invaild.\n");
 		}
 
 		this.name = name;

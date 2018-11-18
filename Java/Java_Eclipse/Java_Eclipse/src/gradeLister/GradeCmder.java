@@ -58,7 +58,7 @@ public class GradeCmder {
 		while (iter.hasNext()) {
 			Map.Entry entry = (Map.Entry) iter.next();
 			Grade temp = (Grade) entry.getValue();
-			System.out.println(temp.getID() + "\t" + temp.getName() + "\t" + temp.getName());
+			System.out.println(temp.getID() + "\t" + temp.getName() + "\t" + temp.getGrade());
 		}
 	}
 
@@ -66,6 +66,11 @@ public class GradeCmder {
 	 * 
 	 * @author Hanyuu
 	 * @date 2018/11/11
+	 */
+	/**
+	 * 
+	 * @author Hanyuu
+	 * @date 2018/11/18
 	 */
 	public void cmder() {
 		Scanner cmderLine = new Scanner(System.in);
@@ -127,6 +132,7 @@ public class GradeCmder {
 			// 【3】save
 			case 3:
 				try {
+					file=new File("out.txt");
 					output = new GradeOutput(file);
 //					for (Iterator<Grade> iter = grade.iterator(); iter.hasNext();) {
 //						temp = iter.next();
@@ -145,25 +151,26 @@ public class GradeCmder {
 			// 【5】:randomize
 			case 5:
 				String tempID = nr.getRandomID();
-				Grade tempGrade=new Grade();
+				Grade tempGrade;
 				System.out.println("The number of students you want to generate:");
 				int number = cmderLine.nextInt();
-				if (number<=0) {
+				if (number <= 0) {
 					System.out.println("You can't generate that number of students.");
 					break;
 				}
-				for (int i=0 ;i<number;i++) {
-					while (gradeMap.containsKey(tempID)) {
+				for (int i = 0; i < number; i++) {
+					do {
 						tempID = nr.getRandomID();
-				}
+					} while (gradeMap.containsKey(tempID));
 					try {
-					tempGrade.setID(tempID);
-					tempGrade.setName(nr.getRandomName());
-					tempGrade.setGrade(nr.getRandomScore());
-					gradeMap.put(tempID, tempGrade);
-					}
-					catch(Exception e){
-						System.err.println("Gererate exception, add filed;");;
+						tempGrade=new Grade();
+						tempGrade.setID(tempID);
+						tempGrade.setName(nr.getRandomName());
+						tempGrade.setGrade(nr.getRandomScore());
+						gradeMap.put(tempID, tempGrade);
+					} catch (Exception e) {
+						System.err.println("Gererate exception, add filed;");
+						;
 					}
 				}
 
