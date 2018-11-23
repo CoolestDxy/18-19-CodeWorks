@@ -87,4 +87,13 @@ void P316N03()
 	{
 		exp.simpleFind(getRand(0, size));
 	}
+	Sets expa(size);
+	for (int i = 0; i < 4000; i++)
+	{
+		expa.widgetUnion(getRand(0, size), getRand(0, size));
+	}
+	for (int i = 0; i < 4000; i++)
+	{
+		expa.collapsingFind(getRand(0, size));
+	}
 }
