@@ -90,8 +90,8 @@ void P316N03()
 	//	std::cout << j;
 	//}
 
-	const int size = 100;
-	const int rp = 60;
+	const int size = 10000;
+	const int rp = 9900;
 	srand(time(0));
 	long a = clock();
 	Sets exp(size);
