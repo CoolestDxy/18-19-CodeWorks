@@ -16,6 +16,8 @@ public:
 	}
 	void simpleUnion(int i, int j)
 	{
+		i = simpleFind(i);
+		j = simpleFind(j);
 		parent[i] = j;
 	}
 	int simpleFind(int i)
@@ -28,10 +30,12 @@ public:
 	}
 	void widgetUnion(int i, int j)
 	{
+		i = collapsingFind(i);
+		j = collapsingFind(j);
 		int temp = parent[i] + parent[j];
 		if (parent[i] > parent[j])
 		{
-			parent[i] = i;
+			parent[i] = j;
 			parent[j] = temp;
 		}
 		else
@@ -49,7 +53,7 @@ public:
 			{
 				int s = parent[i];
 				parent[i] = r;
-				r = s;
+				i = s;
 			}
 		return r;
 	}
@@ -72,28 +76,60 @@ int getRand(int start, int end)
 	{
 		throw "cmp err.";
 	}
-	return rand() % (end - start + 1) + start;
+	return rand() % (end - start) + start;
 }
 void P316N03()
 {
-	const int size = 60000;
+	//for (int i = 0; i < 1000000; i++)
+	//{
+	//	int j = getRand(0, 10);
+	//	if (j<0||j>=10)
+	//	{
+	//		throw "error";
+	//	}
+	//	std::cout << j;
+	//}
+
+	const int size = 100;
+	const int rp = 60;
 	srand(time(0));
+	long a = clock();
 	Sets exp(size);
-	for (int i = 0; i < 4000; i++)
+	for (int i = 0; i < rp; i++)
 	{
-		exp.simpleUnion(getRand(0, size),getRand(0,size));
+		int a = getRand(0, size);
+		int b = getRand(0, size);
+		while (a == b|| exp.simpleFind(a)==exp.simpleFind(b))
+		{
+			a = getRand(0, size);
+			b = getRand(0, size);
+		}
+		exp.simpleUnion(a,b);
 	}
-	for (int i = 0; i < 4000; i++)
+	for (int i = 0; i < rp; i++)
 	{
 		exp.simpleFind(getRand(0, size));
 	}
+	long b = clock();
+	std::cout << b - a<<std::endl;
+	a = clock();
 	Sets expa(size);
-	for (int i = 0; i < 4000; i++)
+	for (int i = 0; i < rp; i++)
 	{
-		expa.widgetUnion(getRand(0, size), getRand(0, size));
+		int a = getRand(0, size);
+		int b = getRand(0, size);
+		while (a == b||expa.collapsingFind(a)==expa.collapsingFind(b))
+		{
+			a = getRand(0, size);
+			b = getRand(0, size);
+		}
+		expa.widgetUnion(a,b);
 	}
-	for (int i = 0; i < 4000; i++)
+	for (int i = 0; i < rp; i++)
 	{
 		expa.collapsingFind(getRand(0, size));
 	}
+	b = clock();
+	std::cout << b - a << std::endl;
+
 }
